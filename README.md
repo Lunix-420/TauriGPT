@@ -1,7 +1,3 @@
-# Tauri + Vanilla
+# TauriGPT [WORK IN PROGRESS]
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Welcome to my custom ChatGPT Client! This project is a Tauri-based desktop application. Unlike existing clients, this one will allow users to apply custom themes, offering a more personalized experience.
