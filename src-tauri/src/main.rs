@@ -7,24 +7,31 @@ use tao::{
     window::WindowBuilder,
 };
 use wry::WebViewBuilder;
+
+fn get_config_path() -> PathBuf {
+    match std::env::consts::OS {
+        "windows" => {
+            let app_data = dirs::data_dir().unwrap_or_else(|| PathBuf::from("C:\\"));
+            return app_data.join("tauri-gpt");
+        }
+        "macos" | "linux" => {
+            let config_dir = dirs::config_dir().unwrap_or_else(|| PathBuf::from("/"));
+            return config_dir.join("tauri-gpt");
+        }
+        _ => return PathBuf::from("assets").join("style.css"),
+    };
+}
+
+// Tauri based ChatGPT desktop app
 fn main() -> wry::Result<()> {
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
+    window.set_title("TauriGPT");
 
-    #[cfg(any(
-        target_os = "windows",
-        target_os = "macos",
-        target_os = "ios",
-        target_os = "android"
-    ))]
+    #[cfg(not(target_os = "linux"))]
     let builder = WebViewBuilder::new(&window);
 
-    #[cfg(not(any(
-        target_os = "windows",
-        target_os = "macos",
-        target_os = "ios",
-        target_os = "android"
-    )))]
+    #[cfg(target_os = "linux")]
     let builder = {
         use tao::platform::unix::WindowExtUnix;
         use wry::WebViewBuilderExtUnix;
@@ -33,19 +40,9 @@ fn main() -> wry::Result<()> {
     };
 
     // Determine the path to the CSS file based on the OS
-    let css_path = match std::env::consts::OS {
-        "windows" => {
-            let app_data = dirs::data_dir().unwrap_or_else(|| PathBuf::from("C:\\"));
-            app_data.join("tauri-gpt").join("style.css")
-        }
-        "macos" | "linux" => {
-            let config_dir = dirs::config_dir().unwrap_or_else(|| PathBuf::from("/"));
-            config_dir.join("tauri-gpt").join("style.css")
-        }
-        _ => PathBuf::from("assets").join("style.css"), // Fallback for unknown OSes
-    };
 
     // Read the CSS file contents
+    let css_path = get_config_path().join("style.css");
     let css_content = fs::read_to_string(&css_path)
         .unwrap_or_else(|_| panic!("CSS file not found at: {}", css_path.display()));
 

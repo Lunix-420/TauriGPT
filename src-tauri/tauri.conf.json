@@ -1,17 +1,17 @@
 {
-  "productName": "tauri-gpt",
-  "version": "0.0.0",
-  "identifier": "com.tauri.dev",
-  "build": {
-    "frontendDist": "../src"
-  },
+  "productName": "TauriGPT",
+  "version": "0.1.0",
+  "identifier": "com.github.lunix420.taurigpt",
+  "build": {},
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "tauri-gpt",
-        "width": 800,
-        "height": 600
+        "title": "TauriGPT",
+        "theme": "Dark",
+        "width": 1600,
+        "height": 900,
+        "center": true
       }
     ],
     "security": {
@@ -20,7 +20,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["deb", "rpm", "msi", "app", "dmg"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
