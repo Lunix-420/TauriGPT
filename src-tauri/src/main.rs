@@ -29,10 +29,10 @@ fn main() {
         print_help();
         process::exit(0);
     }
-    if args.contains(&"-v".to_string()) || args.contains(&"--version".to_string()) {
-        println!("{}", tauri::App::PackageInfo::version);
-        process::exit(0);
-    }
+    //if args.contains(&"-v".to_string()) || args.contains(&"--version".to_string()) {
+    //    println!("{}", tauri::App::PackageInfo::version);
+    //    process::exit(0);
+    //}
 
     let style: &'static str = &get_style();
     let url = tauri::Url::parse("http://chatgpt.com").unwrap();
