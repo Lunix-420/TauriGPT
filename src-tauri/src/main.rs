@@ -49,6 +49,9 @@ fn main() {
                         "#,
                     style
                 ))
+                .title("TauriGPT")
+                .resizable(true)
+                .center()
                 .build()?;
             Ok(())
         })
